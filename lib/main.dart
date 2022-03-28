@@ -1,5 +1,3 @@
-//import 'dart:js_util';
-
 import 'package:flutter/material.dart';
 
 
@@ -17,16 +15,16 @@ class MyForm extends StatefulWidget {
 }
 
 class MyFormState extends State {
-  final _formKey = GlobalKey<FormState>();
-  int _width = 0;
-  int _height = 0;
-  int _area = 0;
+  final formKey = GlobalKey<FormState>();
+  int width = 0;
+  int height = 0;
+  int area = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10.0),
       child: Form(
-        key: _formKey,
+        key: formKey,
         child: Column(children: <Widget>[
           const Text(
             'Ширина (мм): ',
@@ -35,9 +33,9 @@ class MyFormState extends State {
           TextFormField(validator: (value) {
             if (value!.isEmpty) return 'Введите ширину';
             try {
-              _width = int.parse(value);
+              width = int.parse(value);
             } catch (e) {
-              _width = 0;
+              width = 0;
               return e.toString();
             }
           }),
@@ -49,18 +47,18 @@ class MyFormState extends State {
           TextFormField(validator: (value) {
             if (value!.isEmpty) return 'Введите высоту';
             try {
-              _height = int.parse(value);
+              height = int.parse(value);
             } catch (e) {
-              _height = 0;
+              height = 0;
               return e.toString();
             }
           }),
           const SizedBox(height: 20.0),
           RaisedButton(
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
+              if (formKey.currentState!.validate()) {
                 setState(() {
-                  if (_width is int && _height is int) _area = _width * _height;
+                  if (width is int && height is int) area = width * height;
                 });
               }
             },
@@ -70,9 +68,9 @@ class MyFormState extends State {
           ),
           const SizedBox(height: 50.0),
           Text(
-            _area == 0
+            area == 0
                 ? ''
-                : 'S = $_width * $_height = $_area (мм^2)',
+                : 'S = $width * $height = $area (мм^2)',
             style: const TextStyle(fontSize: 30.0),
           )
         ]),
